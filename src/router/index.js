@@ -1,22 +1,51 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+
+const Login = () => import('../pages/login/Login.vue')
+const Home = () => import('../pages/home/Home.vue')
+const Register = () => import('../pages/login/Register.vue')
+const Moment = () => import('../pages/moment/Moment.vue')
+const Publish = () => import('../pages/moment/Publish.vue')
+const Mine = () => import('../pages/mine/Mine.vue')
+const Comment = () => import('../components/comment/Comment.vue')
 
 Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: '',
+    redirect: '/login'
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/login',
+    component: Login
+  },
+  {
+    path: '/register',
+    component: Register
+  },
+  {
+    path: '/home',
+    component: Home,
+    redirect: '/moment',
+    children: [
+      {
+        path: '/moment',
+        component: Moment
+      },
+      {
+        path: '/upload',
+        component: Publish
+      },
+      {
+        path: '/moment/:momentId',
+        component: Comment
+      },
+      {
+        path: '/mine',
+        component: Mine
+      },
+    ]
   }
 ]
 
@@ -24,6 +53,15 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+// 挂载路由导航守卫
+router.beforeEach((to, from, next) => {
+  if (to.path == '/login') return next()
+  // 获取 token
+  const tokenStr = window.sessionStorage.getItem('token')
+  if (!tokenStr) return next('/login')
+  next()
 })
 
 export default router
