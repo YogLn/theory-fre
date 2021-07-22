@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <show />
     <div class="login-box">
       <div class="login-header">
         <span>欢迎注册</span>
@@ -72,7 +71,7 @@ export default {
 
 <style lang="less" scoped>
 .container {
-  height: 100vh;
+  height: 100%;
   .login-box {
     display: relative;
     padding: 40px 10px;
@@ -80,9 +79,9 @@ export default {
     height: 300px;
     background: rgba(255, 255, 255, 0.6);
     position: fixed;
-    left: 72%;
+    left: 50%;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(-50%, -50%);
     .login-header {
       margin-top: -10px;
       display: flex;

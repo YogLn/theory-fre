@@ -5,37 +5,26 @@
         <span class="logo">Forum</span>
       </div>
       <div class="center">
-        <router-link v-for="(item, index) in title"
-                     :class="currentIndex === index ? 'active' : ''"
-                     :to="item.path"
-                     :key="index"
-                     class="title-item"
-                     @click.native="titleClick(index)">
+        <router-link v-for="(item, index) in title" :class="currentIndex === index ? 'active' : ''" :to="item.path" :key="index" class="title-item" @click.native="titleClick(index)">
           {{item.name}}
         </router-link>
       </div>
       <div class="right">
-        <img :src="avatarUrl"
-             alt="">
+        <img :src="avatarUrl" alt="">
         <!-- 下拉菜单 -->
         <a-dropdown>
-          <a class="ant-dropdown-link"
-             @click="e => e.preventDefault()">
+          <a class="ant-dropdown-link" @click="e => e.preventDefault()">
             {{username}}
             <a-icon type="down" />
           </a>
           <a-menu slot="overlay">
             <a-menu-item>
-              <a-upload list-type="picture"
-                        @change="changeAvatar"
-                        :action="uploadURL"
-                        :headers="headerObj">
+              <a-upload list-type="picture" @change="changeAvatar" :action="uploadURL" :headers="headerObj">
                 <a href="javascript:;">修改头像</a>
               </a-upload>
             </a-menu-item>
             <a-menu-item>
-              <a href="javascript:;"
-                 @click="loginOut">退出登录</a>
+              <a href="javascript:;" @click="loginOut">退出登录</a>
             </a-menu-item>
           </a-menu>
         </a-dropdown>
@@ -60,7 +49,11 @@ export default {
         {
           name: '动态',
           path: '/upload',
-        }
+        },
+        {
+          name: '我的',
+          path: '/mine',
+        },
       ],
       headerObj: {
         Authorization: window.sessionStorage.getItem('token'),
@@ -80,7 +73,7 @@ export default {
         this.avatarUrl = res.avatar_url
       } else {
         // 选取的默认头像
-        this.avatarUrl = 'http://121.4.100.103:5000/users/1/avatar'
+        this.avatarUrl = 'http://121.4.100.103:5000/users/3/avatar'
       }
     },
     async changeAvatar({ fileList }) {
@@ -97,7 +90,7 @@ export default {
       if (res.status !== 200) {
         return this.$message.error('修改头像失败')
       }
-      return this.$message.success('修改头像成功')
+     return this.$message.success('修改头像成功')
     },
     loginOut() {
       window.sessionStorage.clear()

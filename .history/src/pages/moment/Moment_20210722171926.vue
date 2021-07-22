@@ -37,7 +37,7 @@
               <a slot="title"
                  :href="item.href">{{ item.title }}</a>
               <a-avatar slot="avatar"
-                        :src="item.author.avatarUrl ? item.author.avatarUrl: 'http://121.4.100.103:5000/users/1/avatar'" />
+                        :src="item.author.avatarUrl ?item.author.avatarUrl: 'http://121.4.100.103:5000/users/1/avatar'" />
             </a-list-item-meta>
             {{ item.content }}
           </a-skeleton>
@@ -86,6 +86,7 @@ export default {
   methods: {
     async getMomentList() {
       const { data: res } = await this.$http.get('/moment', this.query)
+      console.log(res)
       this.momentList = res
       this.count = res[0].momentCount
       this.loading = false

@@ -80,7 +80,7 @@ export default {
     height: 300px;
     background: rgba(255, 255, 255, 0.6);
     position: fixed;
-    left: 72%;
+    left: 50%;
     top: 50%;
     transform: translateY(-50%);
     .login-header {

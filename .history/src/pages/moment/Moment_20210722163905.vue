@@ -1,43 +1,25 @@
 <template>
   <div class="container">
     <div class="moment">
-      <a-list item-layout="vertical"
-              size="large"
-              :data-source="momentList">
-        <a-list-item slot="renderItem"
-                     key="item.title"
-                     slot-scope="item">
+      <a-list item-layout="vertical" size="large" :data-source="momentList">
+        <a-list-item slot="renderItem" key="item.title" slot-scope="item">
           <template slot="actions">
             <span key="type">
-              <a-icon type="star"
-                      style="margin-right: 8px" />
-              <span class="actionTitle">{{getRandomNum()}}</span>
-              <a-icon type="like"
-                      style="margin-right: 8px" />
-              <span class="actionTitle">{{getRandomNum()}}</span>
-              <a-icon type="message"
-                      style="margin-right: 8px"
-                      @click="oprate(item.id)" />
+              <a-icon type="star" style="margin-right: 8px" />
+              <span class="actionTitle">99</span>
+              <a-icon type="like" style="margin-right: 8px" />
+              <span class="actionTitle">99</span>
+              <a-icon type="message" style="margin-right: 8px" @click="oprate(item.id)" />
               <span class="actionTitle">{{item.commentCount}}</span>
-              <a-icon v-if="item.author.id == userId"
-                      type="delete"
-                      style="margin-right: 8px"
-                      @click="deleteMomentById(item.id)" />
+              <a-icon v-if="item.author.id == userId" type="delete" style="margin-right: 8px" @click="deleteMomentById(item.id)" />
               <span class="actionTitle"></span>
             </span>
           </template>
-          <img slot="extra"
-               width="272"
-               alt="logo"
-               :src="item.images ? item.images[0] : 'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'" />
-          <a-skeleton :loading="loading"
-                      active
-                      avatar>
+          <img slot="extra" width="272" alt="logo" :src="item.images ? item.images[0] : 'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'" />
+          <a-skeleton :loading="loading" active avatar>
             <a-list-item-meta :description="item.author.name + ' ' +formateDate(item.updateTime)">
-              <a slot="title"
-                 :href="item.href">{{ item.title }}</a>
-              <a-avatar slot="avatar"
-                        :src="item.author.avatarUrl ? item.author.avatarUrl: 'http://121.4.100.103:5000/users/1/avatar'" />
+              <a slot="title" :href="item.href">{{ item.title }}</a>
+              <a-avatar slot="avatar" :src="item.author.avatarUrl ?item.author.avatarUrl: 'http://121.4.100.103:5000/users/3/avatar'" />
             </a-list-item-meta>
             {{ item.content }}
           </a-skeleton>
@@ -45,10 +27,7 @@
       </a-list>
       <!-- 分页 -->
       <div class="pagination">
-        <a-pagination show-quick-jumper
-                      :default-current="1"
-                      :total="count"
-                      @change="changePage" />
+        <a-pagination show-quick-jumper :default-current="1" :total="count" @change="changePage" />
       </div>
     </div>
     <div class="back-top">
@@ -58,7 +37,6 @@
 </template>
 
 <script>
-import { getRandomNum } from '../../utils/random-com'
 import { formateDate } from '../../utils/format-time'
 export default {
   created() {
@@ -75,7 +53,6 @@ export default {
         size: 10,
       },
       formateDate,
-      getRandomNum,
       loading: true,
 
       // 点赞和收藏
@@ -87,7 +64,7 @@ export default {
     async getMomentList() {
       const { data: res } = await this.$http.get('/moment', this.query)
       this.momentList = res
-      this.count = res[0].momentCount
+      this.count = res[0].count
       this.loading = false
     },
     async deleteMomentById(id) {

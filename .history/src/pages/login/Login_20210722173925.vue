@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <show />
+
     <div class="login-box">
       <div class="login-header">
         <span>欢迎登录</span>
@@ -38,7 +38,7 @@
 
 <script>
 import { Mixin } from '../../mixin'
-import Show from './Show.vue'
+import { Show } from './Show.vue'
 export default {
   components: { Show },
   mixins: [Mixin],
@@ -70,38 +70,40 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.login-box {
-  display: relative;
-  padding: 40px 10px;
-  width: 340px;
-  height: 300px;
-  background: rgba(255, 255, 255, 0.6);
-  position: fixed;
-  left: 72%;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 0.8;
-  .login-header {
-    margin-top: -10px;
-    display: flex;
-    justify-content: center;
-    height: 40px;
-    line-height: 40px;
-    border-bottom: 1.6px solid #818679;
-    span {
-      text-align: center;
-      letter-spacing: 12px;
+
+  .login-box {
+    display: relative;
+    padding: 40px 10px;
+    width: 340px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.6);
+    position: fixed;
+    left: 72%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.8;
+    .login-header {
+      margin-top: -10px;
+      display: flex;
+      justify-content: center;
+      height: 40px;
+      line-height: 40px;
+      border-bottom: 1.6px solid #818679;
+      span {
+        text-align: center;
+        letter-spacing: 12px;
+      }
     }
-  }
-  .login-form {
-    padding: 20px;
-  }
-  .login-btn {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    .btn-login {
-      margin: 0 10px;
+    .login-form {
+      padding: 20px;
+    }
+    .login-btn {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      .btn-login {
+        margin: 0 10px;
+      }
     }
   }
 }

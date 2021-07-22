@@ -5,67 +5,40 @@
     <div class="comment">
       <a-comment>
         <a slot="author">{{this.author.name}}</a>
-        <a-avatar slot="avatar"
-                  v-if="author.avatarUrl"
-                  :src="commentInfo.author.avatarUrl" />
-        <a-avatar slot="avatar"
-                  v-else
-                  src="http://121.4.100.103:5000/users/1/avatar" />
+        <a-avatar slot="avatar" v-if="author.avatarUrl" :src="commentInfo.author.avatarUrl" />
+        <a-avatar slot="avatar" v-else src="http://121.4.100.103:5000/users/3/avatar" />
         <p slot="content">{{commentInfo.content}}</p>
         <a-tooltip slot="datetime">
           <span>{{ commentInfo.updateTime}}</span>
         </a-tooltip>
-        <div class="pictrue"
-             v-if="commentInfo.images">
-          <div v-for="(item, index) in commentInfo.images"
-               :key="index">
-            <img :src="item"
-                 alt="">
+        <div class="pictrue" v-if="commentInfo.images">
+          <div v-for="(item, index) in commentInfo.images" :key="index">
+            <img  :src="item" alt="">
           </div>
         </div>
 
         <a-divider />
 
-        <a-comment v-for="(item, index) in comments"
-                   :key="index">
+        <a-comment v-for="(item, index) in comments" :key="index">
           <template v-if="!item.commentId">
-            <span slot="actions"
-                  key="comment-nested-reply-to"
-                  @click="showDialog(item.id)">回复</span>
-            <span slot="actions"
-                  v-if="item.user.id == userId"
-                  key="comment-nested-delete-to"
-                  @click="deleteComment(item)">删除</span>
+            <span slot="actions" key="comment-nested-reply-to" @click="showDialog(item.id)">回复</span>
+            <span slot="actions" v-if="item.user.id == userId" key="comment-nested-delete-to" @click="deleteComment(item)">删除</span>
             <a slot="author">{{item.user.name}}</a>
-            <a-avatar slot="avatar"
-                      v-if="item.user.avatarUrl"
-                      :src="item.user.avatarUrl" />
-            <a-avatar slot="avatar"
-                      v-else
-                      src="http://121.4.100.103:5000/users/1/avatar" />
+            <a-avatar slot="avatar" v-if="item.user.avatarUrl" :src="item.user.avatarUrl" />
+            <a-avatar slot="avatar" v-else src="http://121.4.100.103:5000/users/3/avatar" />
             <p slot="content">{{item.content}}</p>
             <a-tooltip slot="datetime">
               <span>{{ formateTime(item.createTime)}}</span>
             </a-tooltip>
             <a-divider />
           </template>
-          <div v-for="(it, id) in comments"
-               :key="id">
+          <div v-for="(it, id) in comments" :key="id">
             <a-comment v-if="item.id == it.commentId">
-              <span slot="actions"
-                    key="comment-nested-reply-to"
-                    @click="showDialog(it.id)">回复</span>
-              <span slot="actions"
-                    v-show="it.user.id == userId"
-                    key="comment-nested-delete-to"
-                    @click="deleteComment(it.id)">删除</span>
+              <span slot="actions" key="comment-nested-reply-to" @click="showDialog(it.id)">回复</span>
+              <span slot="actions" v-show="it.user.id == userId" key="comment-nested-delete-to" @click="deleteComment(it.id)">删除</span>
               <a slot="author">{{it.user.name}}</a>
-              <a-avatar slot="avatar"
-                        v-if="it.user.avatarUrl"
-                        :src="it.user.avatarUrl" />
-              <a-avatar slot="avatar"
-                        v-else
-                        src="http://121.4.100.103:5000/users/1/avatar" />
+              <a-avatar slot="avatar" v-if="it.user.avatarUrl" :src="it.user.avatarUrl" />
+              <a-avatar slot="avatar" v-else src="http://121.4.100.103:5000/users/3/avatar" />
               <p slot="content">{{it.content}}</p>
               <a-tooltip slot="datetime">
                 <span>{{ formateTime(it.createTime)}}</span>
@@ -78,15 +51,10 @@
 
       <div slot="content">
         <a-form-item>
-          <a-textarea :rows="4"
-                      v-model="commentContent"
-                      allowClear />
+          <a-textarea :rows="4" v-model="commentContent" allowClear />
         </a-form-item>
         <a-form-item>
-          <a-button html-type="submit"
-                    :loading="submitLoading"
-                    type="primary"
-                    @click="handleComment">
+          <a-button html-type="submit" :loading="submitLoading" type="primary" @click="handleComment">
             添加评论
           </a-button>
         </a-form-item>
@@ -94,16 +62,10 @@
     </div>
 
     <!-- 其他的组件 -->
-    <a-modal v-model="modalVisible"
-             title="回复评论"
-             centered
-             @ok="replay()">
-      <a-form-model :model="replayComment"
-                    ref="replayRef">
+    <a-modal v-model="modalVisible" title="回复评论" centered @ok="replay()">
+      <a-form-model :model="replayComment" ref="replayRef">
         <a-form-item>
-          <a-textarea :rows="4"
-                      v-model="replayComment.content"
-                      allowClear />
+          <a-textarea :rows="4" v-model="replayComment.content" allowClear />
         </a-form-item>
       </a-form-model>
     </a-modal>
@@ -177,11 +139,9 @@ export default {
       this.$confirm({
         title: '警告',
         content: '确认删除这条评论吗?',
-        cancelText: '取消',
-        okText: '确认',
         onOk: async () => {
           const res = await this.$http.del(`/comment/${id}`)
-          if (res.status !== 200) {
+          if(res.status !== 200) {
             return this.$message.error('删除评论失败')
           }
           this.$message.success('删除评论成功')

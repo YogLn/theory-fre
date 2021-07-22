@@ -11,10 +11,10 @@
             <span key="type">
               <a-icon type="star"
                       style="margin-right: 8px" />
-              <span class="actionTitle">{{getRandomNum()}}</span>
+              <span class="actionTitle">{{getRandomNum}}</span>
               <a-icon type="like"
                       style="margin-right: 8px" />
-              <span class="actionTitle">{{getRandomNum()}}</span>
+              <span class="actionTitle">{{getRandomNum}}</span>
               <a-icon type="message"
                       style="margin-right: 8px"
                       @click="oprate(item.id)" />
@@ -37,7 +37,7 @@
               <a slot="title"
                  :href="item.href">{{ item.title }}</a>
               <a-avatar slot="avatar"
-                        :src="item.author.avatarUrl ? item.author.avatarUrl: 'http://121.4.100.103:5000/users/1/avatar'" />
+                        :src="item.author.avatarUrl ?item.author.avatarUrl: 'http://121.4.100.103:5000/users/1/avatar'" />
             </a-list-item-meta>
             {{ item.content }}
           </a-skeleton>
@@ -75,7 +75,6 @@ export default {
         size: 10,
       },
       formateDate,
-      getRandomNum,
       loading: true,
 
       // 点赞和收藏
@@ -86,6 +85,7 @@ export default {
   methods: {
     async getMomentList() {
       const { data: res } = await this.$http.get('/moment', this.query)
+      console.log(res)
       this.momentList = res
       this.count = res[0].momentCount
       this.loading = false

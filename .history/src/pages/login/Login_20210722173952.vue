@@ -38,7 +38,7 @@
 
 <script>
 import { Mixin } from '../../mixin'
-import Show from './Show.vue'
+import { Show } from './Show.vue'
 export default {
   components: { Show },
   mixins: [Mixin],

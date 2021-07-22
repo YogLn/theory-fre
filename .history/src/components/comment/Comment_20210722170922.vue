@@ -177,8 +177,6 @@ export default {
       this.$confirm({
         title: '警告',
         content: '确认删除这条评论吗?',
-        cancelText: '取消',
-        okText: '确认',
         onOk: async () => {
           const res = await this.$http.del(`/comment/${id}`)
           if (res.status !== 200) {

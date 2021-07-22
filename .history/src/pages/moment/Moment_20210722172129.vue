@@ -86,6 +86,7 @@ export default {
   methods: {
     async getMomentList() {
       const { data: res } = await this.$http.get('/moment', this.query)
+      console.log(res)
       this.momentList = res
       this.count = res[0].momentCount
       this.loading = false

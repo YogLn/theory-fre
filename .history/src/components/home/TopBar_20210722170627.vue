@@ -80,7 +80,7 @@ export default {
         this.avatarUrl = res.avatar_url
       } else {
         // 选取的默认头像
-        this.avatarUrl = 'http://121.4.100.103:5000/users/1/avatar'
+        this.avatarUrl = 'http://121.4.100.103:5000/users/3/avatar'
       }
     },
     async changeAvatar({ fileList }) {
